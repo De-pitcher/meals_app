@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../screens/filters_screen.dart';
+
 class MainDrawer extends StatefulWidget {
   const MainDrawer({super.key});
 
@@ -8,7 +10,7 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
-  Widget buildListTile(String text, IconData icon) {
+  Widget buildListTile(String text, IconData icon, Function()? onTapHandler) {
     return ListTile(
       leading: Icon(
         icon,
@@ -22,7 +24,7 @@ class _MainDrawerState extends State<MainDrawer> {
           fontWeight: FontWeight.bold,
         ),
       ),
-      onTap: () {},
+      onTap: onTapHandler,
     );
   }
 
@@ -47,8 +49,16 @@ class _MainDrawerState extends State<MainDrawer> {
             ),
           ),
           const SizedBox(height: 20),
-          buildListTile('Meals', Icons.restaurant),
-          buildListTile('Filter', Icons.settings),
+          buildListTile(
+            'Meals',
+            Icons.restaurant,
+            () => Navigator.of(context).pushNamed('/'),
+          ),
+          buildListTile(
+            'Filter',
+            Icons.settings,
+            () => Navigator.of(context).pushNamed(FiltersScreen.routeName),
+          ),
         ],
       ),
     );
