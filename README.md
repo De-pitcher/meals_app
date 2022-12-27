@@ -1,16 +1,9 @@
 # meals_app
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+The meal_app is an app that displays meals and and filter the meals based on whether it is vegan, lactose, gluten and vegetarian.
 
-A few resources to get you started if this is your first Flutter project:
+This project shows some basic navigation, how a tab and bottom bar navigator can be added, how drawers works and how data can be passed accross the screens either using the constructor or the arguments params of the Navigator class.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+But it has a poor state management as the state is only managed stateless and stateful widgets
