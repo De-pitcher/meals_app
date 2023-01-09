@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../dummy_data.dart';
+import '../providers/meal.dart';
+import '../providers/meals.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-detail';
 
-  final Function toggleFavorite;
-  final Function isMealFavorite;
+  // final Function toggleFavorite;
+  // final Function isMealFavorite;
   const MealDetailScreen(
-    this.toggleFavorite,
-    this.isMealFavorite, {
+    // this.toggleFavorite,
+    // this.isMealFavorite,
+    {
     super.key,
   });
 
@@ -40,7 +43,8 @@ class MealDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mealId = ModalRoute.of(context)!.settings.arguments as String;
-    final selectedMeal = dummyMeals.firstWhere((meal) => meal.id == mealId);
+    final selectedMeal =
+        Provider.of<Meals>(context, listen: false).selectedMeal(mealId);
     return Scaffold(
       appBar: AppBar(
         title: Text(selectedMeal.title),
@@ -92,10 +96,12 @@ class MealDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => toggleFavorite(mealId),
-        child: Icon(
-          isMealFavorite(mealId) ? Icons.star : Icons.star_border,
+      floatingActionButton: Consumer<Meal>(
+        builder: (ctx, meal, _) => FloatingActionButton(
+          onPressed: () => meal.toggleFavorite,
+          child: Icon(
+            meal.isFavorite ? Icons.star : Icons.star_border,
+          ),
         ),
       ),
     );

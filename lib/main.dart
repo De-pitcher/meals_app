@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 
 import './screens/category_meals_screen.dart';
 import './screens/tabs_screen.dart';
-import './screens/meal_screen_detail.dart';
+import 'screens/meal_detail_screen.dart';
 import './screens/filters_screen.dart';
 import './dummy_data.dart';
-import './models/meal.dart';
+import 'providers/meal.dart';
 import './providers/categories.dart';
 import './providers/meals.dart';
 
@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
   };
 
   List<Meal> _availableMeals = dummyMeals;
-  List<Meal> _favoritedMeals = [];
+  List<Meal> _favoritedMeals = []; //! TODO: remove this later!!!
 
   //! TODO: implement setFilter in the meals provider class
   void _setFilters(Map<String, bool> filterData) {
@@ -54,25 +54,25 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _toggleFavorite(String mealId) {
-    final existingIndex =
-        _favoritedMeals.indexWhere((meal) => meal.id == mealId);
-    if (existingIndex >= 0) {
-      setState(() {
-        _favoritedMeals.removeAt(existingIndex);
-      });
-    } else {
-      setState(() {
-        _favoritedMeals.add(
-          dummyMeals.firstWhere((meal) => meal.id == mealId),
-        );
-      });
-    }
-  }
+  // void _toggleFavorite(String mealId) {
+  //   final existingIndex =
+  //       _favoritedMeals.indexWhere((meal) => meal.id == mealId);
+  //   if (existingIndex >= 0) {
+  //     setState(() {
+  //       _favoritedMeals.removeAt(existingIndex);
+  //     });
+  //   } else {
+  //     setState(() {
+  //       _favoritedMeals.add(
+  //         dummyMeals.firstWhere((meal) => meal.id == mealId),
+  //       );
+  //     });
+  //   }
+  // }
 
-  bool _isMealFavorite(String id) {
-    return _favoritedMeals.any((meal) => meal.id == id);
-  }
+  // bool _isMealFavorite(String id) {
+  //   return _favoritedMeals.any((meal) => meal.id == id);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -109,11 +109,10 @@ class _MyAppState extends State<MyApp> {
         ),
         // home: const CategoriesScreen(),
         routes: {
-          '/': (_) => TabsScreen(_favoritedMeals),
+          '/': (_) => const TabsScreen(),
           CategoryMealsScreen.routeName: (_) =>
               CategoryMealsScreen(_availableMeals),
-          MealDetailScreen.routeName: (_) =>
-              MealDetailScreen(_toggleFavorite, _isMealFavorite),
+          MealDetailScreen.routeName: (_) => const MealDetailScreen(),
           FiltersScreen.routeName: (_) => FiltersScreen(_filters, _setFilters),
         },
         onUnknownRoute: (settings) {
