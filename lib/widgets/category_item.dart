@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/material.dart'; 
 
-import '../providers/meals.dart';
 import '../screens/category_meals_screen.dart';
 
 class CategoryItem extends StatelessWidget {
@@ -11,12 +9,6 @@ class CategoryItem extends StatelessWidget {
   const CategoryItem(this.id, this.title, this.color, {super.key});
 
   void selectCategory(BuildContext ctx) {
-    final displayedMeal = Provider.of<Meals>(ctx, listen: false)
-        .items
-        .where(
-          (meal) => meal.categories.contains(id),
-        )
-        .toList();
     Navigator.of(ctx).pushNamed(
       CategoryMealsScreen.routeName,
       arguments: {

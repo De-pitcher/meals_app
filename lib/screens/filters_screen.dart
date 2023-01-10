@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/main_drawer.dart';
+import '../providers/meals.dart';
 
 class FiltersScreen extends StatefulWidget {
   static const routeName = '/filter-screen';
 
-  final Map<String, bool> currentFilters;
-  final Function saveFiltes;
-  const FiltersScreen(this.currentFilters, this.saveFiltes, {super.key});
+  const FiltersScreen({super.key});
 
   @override
   State<FiltersScreen> createState() => _FiltersScreenState();
@@ -18,14 +18,19 @@ class _FiltersScreenState extends State<FiltersScreen> {
   var _vegetarian = false;
   var _vegan = false;
   var _lactoseFree = false;
+  var _isLoaded = false;
 
   @override
-  void initState() {
-    _glutenFree = widget.currentFilters['gluten']!;
-    _lactoseFree = widget.currentFilters['lactose']!;
-    _vegetarian = widget.currentFilters['vegetarian']!;
-    _vegan = widget.currentFilters['vegan']!;
-    super.initState();
+  void didChangeDependencies() {
+    if (!_isLoaded) {
+      final currentFilters = Provider.of<Meals>(context).filters;
+      _glutenFree = currentFilters['gluten']!;
+      _lactoseFree = currentFilters['lactose']!;
+      _vegetarian = currentFilters['vegetarian']!;
+      _vegan = currentFilters['vegan']!;
+      _isLoaded = true;
+    }
+    super.didChangeDependencies();
   }
 
   Widget _buildSwitchListTile(
@@ -49,14 +54,26 @@ class _FiltersScreenState extends State<FiltersScreen> {
       appBar: AppBar(
         title: const Text('Your Filters'),
         actions: [
-          IconButton(
-            onPressed: () => widget.saveFiltes({
-              'gluten': _glutenFree,
-              'lactose': _lactoseFree,
-              'vegan': _vegan,
-              'vegetarian': _vegetarian,
-            }),
-            icon: const Icon(Icons.save),
+          Consumer<Meals>(
+            builder: (ctx, meals, _) => IconButton(
+              onPressed: () {
+                meals.setFilters({
+                  'gluten': _glutenFree,
+                  'lactose': _lactoseFree,
+                  'vegan': _vegan,
+                  'vegetarian': _vegetarian,
+                });
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Done',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.save),
+            ),
           ),
         ],
       ),

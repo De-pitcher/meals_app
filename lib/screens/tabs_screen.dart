@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import './categories_screen.dart';
 import './favorites_screen.dart';
 import '../widgets/main_drawer.dart';
-import '../providers/meal.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});

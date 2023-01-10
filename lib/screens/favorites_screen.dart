@@ -10,8 +10,7 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favoriteMeals =
-        Provider.of<Meals>(context, listen: false).favoriteMeals;
+    final favoriteMeals = Provider.of<Meals>(context).favoriteMeals;
     if (favoriteMeals.isEmpty) {
       return const Center(
         child: Text('You have no favorite yet -  Start adding some!'),
@@ -21,13 +20,6 @@ class FavoritesScreen extends StatelessWidget {
         itemBuilder: (ctx, index) {
           return MealItem(
             meal: favoriteMeals[index],
-            // id: favoriteMeals[index].id,
-            // title: favoriteMeals[index].title,
-            // imageUrl: favoriteMeals[index].imageUrl,
-            // duration: favoriteMeals[index].duration,
-            // complexity: favoriteMeals[index].complexity,
-            // affordability: favoriteMeals[index].affordability,
-            // removeItem: _removeMeal,
           );
         },
         itemCount: favoriteMeals.length,

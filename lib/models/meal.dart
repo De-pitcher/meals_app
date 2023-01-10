@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/foundation.dart';
 
 enum Complexity {
   simple,
@@ -13,7 +12,7 @@ enum Affordability {
   luxurious,
 }
 
-class Meal with ChangeNotifier {
+class Meal {
   final String id;
   final List<String> categories;
   final String title;
@@ -44,9 +43,4 @@ class Meal with ChangeNotifier {
     required this.isVegetarian,
     this.isFavorite = false,
   });
-
-  void toggleFavorite() {
-    isFavorite = !isFavorite;
-    notifyListeners();
-  }
 }

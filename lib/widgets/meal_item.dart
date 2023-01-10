@@ -1,26 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../providers/meal.dart';
+import '../models/meal.dart';
 import '../screens/meal_detail_screen.dart';
 
 class MealItem extends StatelessWidget {
-  // final String id;
-  // final String title;
-  // final String imageUrl;
-  // final int duration;
-  // final Complexity complexity;
-  // final Affordability affordability;
   final Meal meal;
 
   const MealItem({
     super.key,
     required this.meal,
-    // required this.id,
-    // required this.title,
-    // required this.imageUrl,
-    // required this.duration,
-    // required this.complexity,
-    // required this.affordability,
   });
 
   String get complexityText {
@@ -52,7 +40,7 @@ class MealItem extends StatelessWidget {
   void selectMeal(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(
       MealDetailScreen.routeName,
-      arguments: meal.id, //! TODO: Get rid of this id!!!
+      arguments: meal.id,
     );
     // .then(
     //   (result) => result != null ? removeItem(result) : null,
